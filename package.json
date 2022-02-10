@@ -1,0 +1,28 @@
+{
+  "name": "Real Estate Agency",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Borislav-Vezirov/Real-Esate-Agency--Node.js-Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Borislav-Vezirov/Real-Esate-Agency--Node.js-Project/issues"
+  },
+  "homepage": "https://github.com/Borislav-Vezirov/Real-Esate-Agency--Node.js-Project#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.2",
+    "express-handlebars": "^6.0.2",
+    "mongoose": "^6.2.1"
+  }
+}
