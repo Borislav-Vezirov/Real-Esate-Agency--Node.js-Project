@@ -19,6 +19,7 @@ async function start(){
 
         await initDb();
         app.listen(port, () => console.log(`The app is running on http://localhost:${port}`));
+        
     } catch (error) {
         console.log('Cannot connect database');
     }
