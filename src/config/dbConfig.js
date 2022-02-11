@@ -1,6 +1,6 @@
     const mongoose = require('mongoose');
 
-    DB_CONNECTION_STRING = 'mongodb://localhost:27017/real-estate';
+    const { DB_CONNECTION_STRING } = require('./index.js');
 
     function initDb(){
 

@@ -2,7 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const { register, login } = require('../services/authService.js');
 
-const AUTH_COOKIE_NAME = 'auth_token';
+const { AUTH_COOKIE_NAME } = require('../config/index.js');
 
 router.get('/register', (req, res) => {
     res.render('register');

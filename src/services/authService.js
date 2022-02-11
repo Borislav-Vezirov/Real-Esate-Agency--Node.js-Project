@@ -2,7 +2,7 @@ const User = require('../models/User.js');
 const jwt  = require('../utils/jwt.js');
 const bcrypt = require('bcrypt');
 
-const JWT_SECRET = 'hjgb54hgbhlsy67ly6u67lutdstb';
+const { JWT_SECRET } = require('../config/index.js');
 
 
 async function register(userData){
@@ -13,7 +13,6 @@ async function register(userData){
 async function login(username, password){
     
     const user = await User.findOne({ username });
-    console.log(user.password);
 
     if(!user){
         throw new Error('Username or passward are invalid!');
