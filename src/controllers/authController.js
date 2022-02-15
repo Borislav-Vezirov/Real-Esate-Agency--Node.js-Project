@@ -57,6 +57,13 @@ router.post('/login', async (req, res) => {
         //TODO.....
         console.log(error.message);
     }
-})
+});
+
+router.get('/logout', (req, res) => {
+    
+    res.clearCookie(AUTH_COOKIE_NAME);
+
+    res.redirect('/');
+});
 
 module.exports = router;
