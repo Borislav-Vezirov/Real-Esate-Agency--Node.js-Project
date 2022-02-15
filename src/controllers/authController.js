@@ -16,7 +16,7 @@ router.post('/register', async (req, res) => {
         return res.render('/register');
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
     const userData = {
         name           : req.body.name,
@@ -26,6 +26,10 @@ router.post('/register', async (req, res) => {
 
     try {
         await register(userData);
+        
+        let token = await login(req.body.username, req.body.password);
+
+        res.cookie(AUTH_COOKIE_NAME, token);
         
         res.redirect('/');
     } catch (error) {

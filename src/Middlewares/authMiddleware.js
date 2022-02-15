@@ -13,6 +13,7 @@ async function auth(req, res, next) {
             const decodedToken = await jwt.verify(token, JWT_SECRET);
      
             req.user = decodedToken;
+            res.locals.user = decodedToken;
 
             next();
         } catch (error) {

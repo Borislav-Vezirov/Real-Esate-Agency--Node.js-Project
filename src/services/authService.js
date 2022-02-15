@@ -7,7 +7,7 @@ const { JWT_SECRET } = require('../config/index.js');
 
 async function register(userData){
 
-    User.create(userData);
+    await User.create(userData);
 };
 
 async function login(username, password){
@@ -15,10 +15,11 @@ async function login(username, password){
     const user = await User.findOne({ username });
 
     if(!user){
-        throw new Error('Username or passward are invalid!');
+        throw new Error('Username or password are invalid!');
     };
 
     let isValid = await bcrypt.compare(password, user.password);
+   
 
     if(!isValid){
         throw new Error('Username or passward are invalid!');
