@@ -1,3 +1,4 @@
+
 const Housing = require('../models/Housing.js');
 
 async function create(houseData){
@@ -15,9 +16,42 @@ async function getAll(){
     return await Housing.find({}).lean(); 
 };
 
+async function getOne(id){
+
+    return await Housing.findById(id).populate('tenants');
+};
+
+async function addTenant(houseId, tenantId){
+
+    const house = await getOne(houseId);
+
+    if(house._id == tenantId){
+        res.redirect('/');
+    }
+    
+    house.tenants.push(tenantId);
+
+    house.availablePieces -= 1;
+
+    return await house.save();
+};
+
+async function deleteHouse(id){
+
+    return await Housing.findByIdAndDelete(id);
+};
+
+async function updateOne(id, housedata){
+
+    return await Housing.findByIdAndUpdate(id, housedata);
+}
+
 module.exports = {
     create,
     getTop3Houses,
-    getAll
-
+    getAll,
+    getOne,
+    addTenant,
+    deleteHouse,
+    updateOne
 };

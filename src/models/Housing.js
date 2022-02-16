@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
         image           : {type: String, required: true},
         description     : {type: String, required: true},
         availablePieces : {type: Number, required: true},
-        // rentedAHome     : {ref: 'User'},
+        tenants         : [{type: mongoose.Types.ObjectId, ref: 'User'}],
         owner           : {type: mongoose.Types.ObjectId, ref: 'User'}
 
     },
@@ -17,6 +17,11 @@ const userSchema = new mongoose.Schema({
         timestamps: true
     }
 );
+
+userSchema.method('getTenants', function(){
+
+    return this.tenants.map(x => x.name).join(', ');
+})
 
 const Housing = mongoose.model('Housing', userSchema);
 
