@@ -44,6 +44,13 @@ async function deleteHouse(id){
 async function updateOne(id, housedata){
 
     return await Housing.findByIdAndUpdate(id, housedata);
+};
+
+async function search(text){
+
+    let match = new RegExp(text)
+
+    return await Housing.find({type: {$regex: match, $options: 'i'}}).lean();
 }
 
 module.exports = {
@@ -53,5 +60,6 @@ module.exports = {
     getOne,
     addTenant,
     deleteHouse,
-    updateOne
+    updateOne,
+    search
 };
