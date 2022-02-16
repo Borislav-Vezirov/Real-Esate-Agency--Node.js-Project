@@ -1,5 +1,6 @@
 const { isAuth, isOwner } = require('../Middlewares/authMiddleware.js');
 const { create, getAll, getOne, addTenant, deleteHouse, updateOne } = require('../services/housingServices.js');
+const { errorHandler } = require('../utils/errorHandler.js');
 
 const router = require('express').Router();
 
@@ -19,9 +20,16 @@ router.get('/create', isAuth, (req, res) => {
 
 router.post('/create', isAuth, async (req, res) => {
 
-    await create({ ...req.body, owner: req.user.id});
-
-    res.redirect('/housing');
+    try {
+        
+        await create({ ...req.body, owner: req.user.id});
+    
+        res.redirect('/housing');
+        
+    } catch (error) {
+        
+        res.render('create', { error: errorHandler(error) });
+    }
 });
 
 router.get('/details/:id', async (req, res) => {
@@ -64,9 +72,16 @@ router.get('/details/:id/edit', async (req, res) => {
 
 router.post('/details/:id/edit', isAuth, async (req, res) => {
     
-    await updateOne(req.params.id, req.body);
-    
-    res.redirect(`/details/${req.params.id}`);
+
+    try {
+        
+        await updateOne(req.params.id, req.body);
+        
+        res.redirect(`/details/${req.params.id}`);
+    } catch (error) {
+        
+        res.render('edit', { error: errorHandler(error) });
+    }
 });
 
 

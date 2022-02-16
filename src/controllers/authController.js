@@ -13,11 +13,18 @@ router.get('/register', isGuests, (req, res) => {
 
 router.post('/register', isGuests, async (req, res) => {
 
-    if(req.body.password !== req.body.repeatPassword){
+    try {
+
+        if(req.body.password !== req.body.repeatPassword){
         
-        res.locals.error = 'Passwords must be equal!'
-        return res.render('/register');
+           throw new Error('Passwords must be equal!');
+        };
+        
+    } catch (error) {
+        
+        res.render('register', { error: errorHandler(error) });
     }
+ 
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
@@ -36,8 +43,8 @@ router.post('/register', isGuests, async (req, res) => {
         
         res.redirect('/');
     } catch (error) {
-        //TODO.....
-        console.log(error);
+
+        res.render('register', { error: errorHandler(error) });
     }
 
 })
@@ -57,8 +64,8 @@ router.post('/login', isGuests, async (req, res) => {
         res.redirect('/');
         
     } catch (error) {
-        //TODO.....
-        console.log(error.message);
+        
+        res.render('login', { error: errorHandler(error) });
     }
 });
 
