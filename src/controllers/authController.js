@@ -3,12 +3,15 @@ const bcrypt = require('bcrypt');
 const { register, login } = require('../services/authService.js');
 
 const { AUTH_COOKIE_NAME } = require('../config/index.js');
+const { isGuests, isAuth } = require('../Middlewares/authMiddleware.js');
 
-router.get('/register', (req, res) => {
+
+
+router.get('/register', isGuests, (req, res) => {
     res.render('register');
 });
 
-router.post('/register', async (req, res) => {
+router.post('/register', isGuests, async (req, res) => {
 
     if(req.body.password !== req.body.repeatPassword){
         
@@ -39,11 +42,11 @@ router.post('/register', async (req, res) => {
 
 })
 
-router.get('/login', (req, res) => {
+router.get('/login', isGuests, (req, res) => {
     res.render('login');
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', isGuests, async (req, res) => {
     
     const { username, password } = req.body;
 
@@ -59,7 +62,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router.get('/logout', (req, res) => {
+router.get('/logout', isAuth, (req, res) => {
     
     res.clearCookie(AUTH_COOKIE_NAME);
 
